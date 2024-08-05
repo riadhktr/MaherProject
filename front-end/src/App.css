@@ -1,0 +1,14 @@
+
+.prod{
+    border:1px solid rgb(21, 0, 255);
+    height: 100%;
+    margin: 0;
+  }
+.image {
+    height: 200px; 
+     background-image: url("../public/store.jpg");
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
