@@ -15,6 +15,8 @@ import NavbarScroll from './componed/navbar';
 import ShoppingCart from './componed/shoppingCard';
 import RegisterCat from './componed/registerCat';
 import { getLocalStorage } from './helpers/localStorage';
+import ConfirmPay from './componed/confirmPay';
+import UserOrder from './componed/userOrder';
 
 function App() {
 
@@ -35,6 +37,8 @@ function App() {
 
         <Route element={<UserRoute/>}>
         <Route path="/addProd" element={<AddProd/>}/>
+        <Route path="/pay" element={<ConfirmPay/>}/>
+        <Route path="/myOrder" element={<UserOrder/>}/>
         </Route>
 
         <Route element={<AdminRoute/>}>

@@ -51,7 +51,7 @@ authRouter.put('/updateCat/:id' , updateCat)
 
 // shopping cart routes
 
-authRouter.post('/creeteCart' , creeteCart)
+authRouter.post('/creeteCart' ,verification ,creeteCart)
 
 
 

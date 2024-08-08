@@ -1,52 +1,78 @@
 import { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import { singleProd } from '../api/prodApi';
+import { allProducts, singleProd } from '../api/prodApi';
 import { useParams } from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
+import { Button } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../app/cartSlice';
+import SimilarProd from './SimilarProd';
+
 
 
 function Detail() {
  
 
   const [prod , setProd] = useState({}) ;
-  const [images , setImages] = useState([])
-  console.log(prod);
-   let {id} = useParams()
+  const [images , setImages] = useState([]);
+  const dispatch = useDispatch(); 
+  let {id} = useParams();
+
   useEffect(()=>{
     singleProd(id)
     .then ((val)=>{
         setProd(val.doc)
         setImages(val.doc.image)
-    })
+      })
     .catch((err)=>{
       console.error(err);
-    })
-  },[])
+    }) 
+  },[id])
 
+   
+  // console.log(similar);
   return (
-   <div>
+   <div >
     
-    <Carousel data-bs-theme="dark">
+    <Carousel data-bs-theme="dark" >
     {
     images.map((item,index)=>{
-      return <Carousel.Item key={index}>
-      <img
-        className="d-block w-100"
+      return <Carousel.Item key={index} >
+        <div   style={{ display:"flex", justifyContent:"center"}}
+ >
+        <img
+        height="400"
         src={`http://localhost:3000/${item}`}
         alt={`index slide`}
+             
       />
+      
+        </div>
       
     </Carousel.Item>
     })} 
     </Carousel>
-    <div>
-      <h2>category: {prod.category?.nameCat}</h2>
-      <h3>name: {prod.nameProdut}</h3>
-      <p>description: {prod.productDescription}</p>
-      <p>price: {prod.price} $</p>
-      <p>quantity: {prod.quantity} $</p>
+    <div
+      className="modal show"
+      style={{ display: 'block', position: 'relative'  }}
+    >
+      <Modal.Dialog size='lg' >
+        <Modal.Header style={{display:"flex" , justifyContent:"center"}}>
+          <Modal.Title>{prod.nameProdut}</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+         <b>Description</b> : <p>{prod.productDescription}</p>
+         <b>Price</b> : <p> {prod.price} $</p>
+          <b>Stock</b> :<p>{prod.quantity} </p>
+        </Modal.Body>
+
+        <Modal.Footer style={{display:"flex", justifyContent:"center"}}>
+         <Button  onClick={()=>dispatch(addToCart(prod))}>Add To Cart</Button>
+        </Modal.Footer>
+      </Modal.Dialog>
     </div>
-
-
+    <SimilarProd prod={prod}/>
    </div>
   );
 }

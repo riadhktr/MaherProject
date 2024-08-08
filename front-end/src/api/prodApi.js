@@ -29,6 +29,8 @@ export const addProds = async (values)=>{
 } ;
 
 export const getCategory = async ()=>{
+   
+    
     let{data} = await axios.get("http://localhost:7000/auth/allCatt")
     return data
 } ;
@@ -36,7 +38,11 @@ export const getCategory = async ()=>{
 // get card
 
 export const bagCart = async (values)=>{
-    let{data} = await axios.post("http://localhost:7000/auth/creeteCart" , values)
+    let token = getLocalStorage('token')
+    console.log(token);
+    let{data} = await axios.post("http://localhost:7000/auth/creeteCart" , values,{headers:{
+        "Authorization":token
+    }})
     return data
 } ;
 

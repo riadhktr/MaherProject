@@ -9,7 +9,11 @@ const shopCart = new mongoose.Schema({
         type: mongoose.Types.ObjectId ,
         ref:"Product"
    }}],
-    totalPrice : Number
+    totalPrice : Number,
+    orderby:{
+        type : mongoose.Types.ObjectId ,
+        ref:"User"
+      }
 })
 
 

@@ -1,6 +1,10 @@
 import  {useEffect, useState} from "react"
+import "./welcome.css"
 import ProdCard from "./prodCard";
 import { allProducts } from "../api/prodApi";
+import { useDispatch, useSelector } from "react-redux";
+import { setProduct } from "../app/productSlice";
+
 
 
 
@@ -11,17 +15,18 @@ const Product =()=>{
 
   const divStyle = {
     width: '100%',
-    height: '500px',
+    height: '400px',
     backgroundImage: "url('/store.webp')",
     backgroundSize: 'cover',
     
   };
-   const [product , setProduct] = useState([]) ;
- 
+  const {products} = useSelector((state)=>state.produit); 
+  const dispatch = useDispatch();
+
    useEffect(()=>{
     allProducts()
     .then((file)=>{
-     setProduct(file.doc)
+      dispatch(setProduct(file.doc));     
     })
     .catch((err)=>{
         console.log(err);
@@ -33,12 +38,17 @@ const Product =()=>{
   return(
       <div >
        <div style={divStyle}>
-        
        </div>
-       <p>This example creates a half page background image. Try to resize the browser window to see how it always will cover 50% of the screen, and that it scales nicely on all screen sizes.</p>
-        {product.map((element,index)=>{
+       <div style={{backgroundColor:"yellowgreen" , padding:"2%"}} id="scroll-container">
+        <h3 id="scroll-text">Welcome, here you can find anything you look for </h3>
+       </div>
+      <div style={{display:"flex" , justifyContent:"space-around" ,
+         flexWrap:"wrap" , padding:"20px"}}>
+      {products.map((element,index)=>{
           return <ProdCard prod={element}  key={index}/>
         })}
+        
+      </div>
         
       </div>
     )
