@@ -68,7 +68,9 @@ function Detail() {
         </Modal.Body>
 
         <Modal.Footer style={{display:"flex", justifyContent:"center"}}>
-         <Button  onClick={()=>dispatch(addToCart(prod))}>Add To Cart</Button>
+        {prod.quantity > 0 ?  <Button  onClick={()=>dispatch(addToCart(prod))}>Add To Cart</Button>
+        :  <Button disabled>Add To Cart</Button>}
+        
         </Modal.Footer>
       </Modal.Dialog>
     </div>

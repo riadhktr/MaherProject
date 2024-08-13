@@ -61,9 +61,10 @@ return (
           {!token || user?.role==="admin" ? <Nav.Link as={Link} to = '/login'>Login</Nav.Link>  
           :  <NavDropdown title={`Welcome ${user?.firstName} ${user?.lastName}`} id="basic-nav-dropdown">
               <NavDropdown.Item as={Link} to="/addProd">Add Product</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">
+              <NavDropdown.Item as ={Link} to ="/updatePwd">
                 Update Password
               </NavDropdown.Item>
+              <NavDropdown.Item as={Link} to="/myprod" >My products</NavDropdown.Item>
               <NavDropdown.Item as={Link} to="/myOrder" >My Orders</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item onClick={()=>logout()}>

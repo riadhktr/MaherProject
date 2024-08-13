@@ -5,7 +5,8 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState ={
 
     
-    cart :[]
+    cart :[],
+    confirmed : false
    
 }
 
@@ -55,12 +56,17 @@ const cartSlice = createSlice({
         deleteElement:(state,action)=>{
             state.cart =state.cart.filter((item)=> item._id !== action.payload)
         }
+        ,
+        setConfirm :(state,action)=>{
+
+            state.confirmed = action.payload ;
+        }
         
 
     }
 
 })
 
-export const {addToCart, increase , decreese,emptyCart,deleteElement} = cartSlice.actions ;
+export const {addToCart, increase , decreese,emptyCart,deleteElement, setConfirm} = cartSlice.actions ;
 
 export default cartSlice.reducer ;

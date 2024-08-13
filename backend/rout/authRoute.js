@@ -1,10 +1,10 @@
 const express = require('express');
 const { register, login, updatePassword } = require('../handels/auth');
 const { verification } = require('../middelwers/verification');
-const { registerProd, updateProduct, deleteProduct, allProd, prodById } = require('../handels/prodManagement');
+const { registerProd, updateProduct, deleteProduct, allProd, prodById, myProducts } = require('../handels/prodManagement');
 const { registerCat, allCatt, deleteCat, updateCat } = require('../handels/categoryMenagement');
 const multer  = require('multer');
-const { creeteCart } = require('../handels/cardMenagement');
+const { creeteCart, getUserCart } = require('../handels/cardMenagement');
 
 
 const authRouter = express.Router();
@@ -40,6 +40,7 @@ authRouter.put('/updateprod/:id' , verification , updateProduct) ;
 authRouter.delete('/deleteprod/:id' , verification , deleteProduct)
 authRouter.get('/allProd'  , allProd)
 authRouter.get('/prodById/:id' , prodById)
+authRouter.get('/myProd', verification , myProducts)
 
 
 // category routes
@@ -52,7 +53,7 @@ authRouter.put('/updateCat/:id' , updateCat)
 // shopping cart routes
 
 authRouter.post('/creeteCart' ,verification ,creeteCart)
-
+authRouter.get('/userCart',verification , getUserCart)
 
 
 module.exports = authRouter

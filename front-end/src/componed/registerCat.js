@@ -15,10 +15,12 @@ const RegisterCat = () => {
 
 
     return (
-        <div>
+        <div style={{ marginTop:"5rem"}}>
             <form>
-                <input type = "text" name= "nameCat" onChange={hundelChange}/>
-                <button></button>
+                <label>Category Name :</label>
+                <input type = "text" name="nameCat" onChange={hundelChange}/>
+                
+                <button>Add</button>
             </form>
 
         </div>

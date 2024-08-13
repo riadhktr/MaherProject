@@ -50,7 +50,7 @@ exports.login = async (req , res) =>{
             lastName : chekEmail.lastName
         }
 
-        let token = jwt.sign(payload , process.env.SECRET,{ expiresIn: '1h' }) ;
+        let token = jwt.sign(payload , process.env.SECRET) ;
         res.status(200).json({msg:"loged",token,chekEmail})
     } catch (error) {
         res.status(500).json({msg:"server error from register"}) 

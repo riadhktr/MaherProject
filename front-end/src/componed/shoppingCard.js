@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import {Link} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { decreese, deleteElement, emptyCart, increase  } from '../app/cartSlice';
@@ -9,6 +9,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import AlertDialog from './DialogBox';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { getLocalStorage } from '../helpers/localStorage';
 
 
 function ShoppingCart() {
@@ -17,7 +18,7 @@ function ShoppingCart() {
   const [total , setTotal] = useState(0);
   const [error , setError] = useState(false);
   const [open, setOpen] = useState(false);
-
+  const navigate = useNavigate();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -27,7 +28,7 @@ function ShoppingCart() {
   };
 
 
-  let result = cart.filter((item)=> item.count >0)
+  let result = cart.filter((item)=> item.count > 0 )
 
   const dispatch = useDispatch()
  
@@ -35,16 +36,14 @@ function ShoppingCart() {
     dispatch(deleteElement(ID))
   }
   const handelCart =()=>{
-    bagCart({cart:result ,confirm :true})
-    .then((doc)=>{
-        console.log(doc);
-    })
-    .catch((err)=>{
+    let token = getLocalStorage('token');
+
+    if(!token){
       handleClickOpen()
-        setError(true)
-        // console.log(err);
-        
-    })
+      setError(true)
+    }else{
+      navigate('/pay')
+    }
   }
   
   const clearCart = ()=>{
@@ -103,7 +102,7 @@ function ShoppingCart() {
           <Button onClick={()=>clearCart()} >Clear Cart</Button>
         </Card>
 
-     {result.length >0 ? <Card style={{ width: '18rem' }}>
+     { result.length >0 ? <Card style={{ width: '18rem' }}>
       <Card.Body>
         {result.map((item,index)=>{
           return <div key={index}>

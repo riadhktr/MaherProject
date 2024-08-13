@@ -17,6 +17,9 @@ import RegisterCat from './componed/registerCat';
 import { getLocalStorage } from './helpers/localStorage';
 import ConfirmPay from './componed/confirmPay';
 import UserOrder from './componed/userOrder';
+import UpdatePwd from './componed/updatePwd';
+import MyProducts from './componed/myProducts';
+import AdminProdList from './pages/AdminProdList';
 
 function App() {
 
@@ -39,12 +42,14 @@ function App() {
         <Route path="/addProd" element={<AddProd/>}/>
         <Route path="/pay" element={<ConfirmPay/>}/>
         <Route path="/myOrder" element={<UserOrder/>}/>
+        <Route path="/updatePwd" element={<UpdatePwd/>}/>
+        <Route path='/myprod' element={<MyProducts/>}/>
         </Route>
 
         <Route element={<AdminRoute/>}>
 
          <Route path='/admin/*' element={<AdminDash/>}>
-         <Route index element={<Product/>}/>
+         <Route index element={<AdminProdList/>}/>
          <Route path="newProd" element={<AddProd/>}/>
          <Route path='newCat' element={<RegisterCat/>}/>
          

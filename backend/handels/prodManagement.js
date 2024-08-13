@@ -67,6 +67,7 @@ exports.deleteProduct = async(req , res)=>{
         if(user._id.toString() !== currentProd.postedBy.toString()){
            return  res.status(400).json({msg:"user not autorized"}) ;
         }
+        
          await Product.findByIdAndDelete({_id:currentProd._id})
 
         res.status(200).json({msg:"product removed"})
@@ -103,4 +104,22 @@ exports.prodById = async(req,res)=>{
     .catch((err)=>{
         res.status(500).json({msg:"server error"})
     })
+}
+
+
+// get my list of product for every user 
+
+exports.myProducts =async(req,res)=>{
+
+    let user = req.user ;
+     
+    await Product.find({postedBy: user._id})
+    .then((result)=>{
+
+        res.status(200).json(result)
+    })
+    .catch((err)=>{
+        res.status(500).json({msg:"server error "})
+    })
+
 }

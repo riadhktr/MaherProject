@@ -1,4 +1,4 @@
-import  {useEffect, useState} from "react"
+import  {useEffect} from "react"
 import "./welcome.css"
 import ProdCard from "./prodCard";
 import { allProducts } from "../api/prodApi";
@@ -26,10 +26,12 @@ const Product =()=>{
    useEffect(()=>{
     allProducts()
     .then((file)=>{
-      dispatch(setProduct(file.doc));     
+      dispatch(setProduct(file.doc)); 
+        
     })
     .catch((err)=>{
         console.log(err);
+      
     })
    },[])
 
@@ -45,7 +47,7 @@ const Product =()=>{
       <div style={{display:"flex" , justifyContent:"space-around" ,
          flexWrap:"wrap" , padding:"20px"}}>
       {products.map((element,index)=>{
-          return <ProdCard prod={element}  key={index}/>
+          return <ProdCard prod={element}  key={index} />
         })}
         
       </div>
